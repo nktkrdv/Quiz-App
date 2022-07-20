@@ -6,10 +6,9 @@ import Quiz from './screens/Quiz';
 import Result from './screens/Result';
 import { createStackNavigator } from '@react-navigation/stack';
 import Responses from './screens/Responses';
-import App1 from './screens/Timer';
+import App1 from './screens/Categories';
 import { LogBox } from "react-native";
-import { AuthScreen } from './screens/auth';
-import { CloudFirestoreScreen } from './screens/cloudFirestore';
+import { AuthScreen } from './screens/Auth';
 import History from './screens/History';
 import { firebase } from '@react-native-firebase/auth';
 import ShowDetails from './screens/ShowDetails';
@@ -27,11 +26,10 @@ function MyStack() {
       <Stack.Screen options={{headerShown:false}} name="ShowDetails" component={ShowDetails}/>
       <Stack.Screen options={{headerShown:false}} name="Home" component={HomeScreen}  />
       <Stack.Screen options={{headerShown:false}} name="History" component={History}/>
-      <Stack.Screen options={{headerShown:false}} name="Firestore" component={CloudFirestoreScreen}/>
       <Stack.Screen options={{headerShown:false}} name="Quiz" component = {Quiz} />
       <Stack.Screen options={{headerShown:false}} name="Result" component={Result} />
       <Stack.Screen options={{headerShown:false}} name="Responses" component={Responses}/>
-      <Stack.Screen options={{headerShown:false}} name="StopWatch" component={App1}/>
+      <Stack.Screen options={{headerShown:false}} name="Categories" component={App1}/>
     </Stack.Navigator>
     
   );

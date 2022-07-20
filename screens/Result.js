@@ -5,7 +5,7 @@ import { LogBox,ActivityIndicator } from 'react-native';
 import { firebase } from '@react-native-firebase/auth';
 import { firestore } from '../Setup';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import SimpleAnimatable from './animation';
+import SimpleAnimatable from '../components/Animation';
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
@@ -20,14 +20,11 @@ const Result = ({navigation}) => {
   const getScore =()=>{
     setLoading(true);
     let b = 0;
-    // const object = {'a': 1, 'b': 2, 'c' : 3};
     for (const [key, value] of route.params.map.entries()) {
-      // console.log(score)
         console.log(key, value);
         let a = value.get("score");
         b += a;
         console.log('b = ',b)
-        // console.log(value.get("score"))
     }
     setScore(b);
     console.log('score = '  ,score);
@@ -36,17 +33,9 @@ const Result = ({navigation}) => {
       console.log('user uid ' ,user.uid);
       var newMap={};
       route.params.map.forEach((value, key) => {
-        //   // console.log(value, key);
-        //    // 👉️ Chile country, 30 age
-            // route.params.map.set(key,Object.fromEntries(value));
             newMap[key] = Object.fromEntries(value);
         });
         console.log(newMap);
-      // const a = await firestore().collection('Users').doc(user.uid).collection('Details').doc('Score').get();
-      // const n = await firestore().collection('Users').doc(user.uid).collection('Details').doc('Length').get();
-      // const r = await firestore().collection('Users').doc(user.uid).collection('Details').doc('Map').get();
-     
-        // const ar  = await firestore().collection('Users').doc(user.uid).collection('Details').doc('Map').set(newMap);
         
       const usersCollectionRef = firestore().collection('Users').doc(user.uid).collection("History");
       usersCollectionRef.add({
@@ -62,12 +51,8 @@ const Result = ({navigation}) => {
   React.useEffect(() => {
     getScore();
   }, []);
- 
-  // const {answerMap} = route.params.name;
   const print=()=>{
-    // setQues(ques-1)
     {console.log(route.params.map)}
-    // setscore
   }
   if (loading) {
     return <ActivityIndicator color='#fff' size={'large'} animating={true} style = {{alignSelf:'center', justifyContent:'center', margin:300,size:"large",color:'white'}}/>;
@@ -91,7 +76,7 @@ const Result = ({navigation}) => {
             <TouchableOpacity onPress={()=>navigation.navigate('Home')}>
               <Image style = {styles.smalllogo} source={{uri:'https://www.freepnglogos.com/uploads/logo-home-png/home-round-icon-transparent-vector-7.png'}}/>
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>navigation.navigate('StopWatch')}>
+            <TouchableOpacity onPress={()=>navigation.navigate('Categories')}>
               <Image style = {styles.smalllogo} source={{uri:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo8-KmZdYKyApnRTPnsLwgjynVg5LOwbH-6A&usqp=CAU'}}/>
             </TouchableOpacity>
             </View>
@@ -104,10 +89,6 @@ const Result = ({navigation}) => {
                     onPress={() => navigation.navigate('History')}
                     // onPress={print}
                     style={styles.button2}>History</Text>
-                {/* <Text
-                    onPress={() => navigation.navigate('Home')}
-                    // onPress={print}
-                    style={styles.button2}>Go To Home</Text> */}
             </View>
       </View>
         </View>

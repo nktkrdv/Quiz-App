@@ -5,7 +5,8 @@ import { firestore } from '../Setup';
 import { ActivityIndicator } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useRoute } from '@react-navigation/native';
-import Items from './Items2';
+// import Items from '../components/Items2';
+import Items from '../components/ItemsHistory';
 // import Items from './Items';
 
 

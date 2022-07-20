@@ -1,6 +1,6 @@
 import { View, Text ,ScrollView,StyleSheet} from 'react-native'
 import React from 'react'
-import Items from './Items'
+import Items from '../components/Items'
 import { useRoute } from '@react-navigation/native';
 
 const Responses = () => {

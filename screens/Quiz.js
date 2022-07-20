@@ -2,16 +2,11 @@ import * as React from 'react';
 import { View, Text ,Image, StyleSheet} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { RadioButton } from 'react-native-paper';
-import SimpleAnimatable from './animation';
+import SimpleAnimatable from '../components/Animation';
 import { BlurView } from 'expo-blur';
 import {Stopwatch, Timer} from 'react-native-stopwatch-timer';
-import App1 from './Timer';
-// import { Icon } from 'react-native-vector-icons/Icon';
-// import CountDown to show the timer
+import App1 from './Categories';
 import CountDown from 'react-native-countdown-component';
- 
-// import moment to help you play with date and time
-import moment from 'moment';
 import { useRoute } from '@react-navigation/native';
 
 export default function Quiz({ navigation }) {

@@ -1,10 +1,11 @@
 import { Icon,Button, NativeBaseProvider } from 'native-base';
 import * as React from 'react';
-import { SignOutUser } from '../apiService';
+import { SignOutUser } from '../ApiService';
 import { View, Text,Image,StyleSheet } from 'react-native';
-import { NativeIconAPI } from '@expo/vector-icons/build/vendor/react-native-vector-icons/lib/create-icon-set';
 
 export default function HomeScreen({ navigation }) {
+
+  // function to signOut
   const signOut = () => {
     SignOutUser()
       .then((data) => {
@@ -15,9 +16,11 @@ export default function HomeScreen({ navigation }) {
         alert(error);
       });
   };
+
+  // jsx elements
     return (
         <View style={{height:'100%'}}>
-          <Image
+        <Image
         style={styles.logo}
         source={{
           uri: 'https://imgs.search.brave.com/zwFL8XqPiywqVB1j_4me6_fxEJHehSYsJb7M06pcE8o/rs:fit:759:225:1/g:ce/aHR0cHM6Ly90c2Uz/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC41/TXptMDNDSlhMT3cx/YS10UFlRSnRBSGFF/byZwaWQ9QXBp',
@@ -27,7 +30,7 @@ export default function HomeScreen({ navigation }) {
           
           <NativeBaseProvider>
           <Button onPress={signOut}>
-              <Image
+        <Image
         style={styles.logout}
         source={{
           uri: 'https://p.kindpng.com/picc/s/312-3120740_logout-hd-png-download.png',
@@ -43,22 +46,20 @@ export default function HomeScreen({ navigation }) {
       />
             <Text style = {styles.title}>Quizzare</Text>
             <Text
-                    // onPress={() => navigation.navigate('Quiz')}
                     style={styles.para}>Welcome to this awesome Quiz app, you can take a quiz for any topic. click below to start... </Text>
                 <Text
-                    onPress={() => navigation.navigate('StopWatch')}
+                    onPress={() => navigation.navigate('Categories')}
                     style={styles.button}>Start</Text>
                 <Text
                     onPress={() => navigation.navigate('History')}
                     style={styles.button2}>History</Text>
-                    {/* <Text
-                    onPress={() => navigation.navigate('History')}
-                    style={styles.button2}>Description</Text> */}
           </View>
         </View>
     );
 }
 
+
+//StyleSheets
 const styles = StyleSheet.create({
     container: {
       paddingTop: 50,
@@ -104,18 +105,13 @@ const styles = StyleSheet.create({
       alignSelf:'flex-end',
     },
     title:{
-      // margin:0,
-      // backfaceVisibility:
-      // backgroundColor:'black',
       alignContent:'center',
       textAlign:'center',
       fontWeight:'bold',
-      // position:'absolute',
       fontFamily:'serif',
       margin:20,
       fontSize:40,
       textShadowRadius:5,
-      // shadowColor:'#ffffff',
       textShadowColor:'#fff',
       color: '#0000ff'
     },
@@ -126,19 +122,13 @@ const styles = StyleSheet.create({
       color:'#fff',
       shadowColor:'#ffffff',
       shadowRadius:20,
-      // shadwi
       borderColor:'#0000ff',
-      // borderWidth:5,
       borderRightWidth:5,
       textShadowRadius:5,
-      // shadowColor:'#ffffff',
       textShadowColor:'#ffffff',
-      // borderTopWidth:5,
       borderBottomWidth:4,
-      // bordersha
       margin:30,
       padding:10,
-      // position:'absolute',
       paddingHorizontal:75,
       fontSize:30,
       borderRadius:20,
