@@ -73,7 +73,6 @@ const styles = StyleSheet.create({
         borderRadius:10,
         margin:10,
         padding:5,
-        height:30,
     }
 })
 export default Items
