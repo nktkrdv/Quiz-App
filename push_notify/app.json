@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "push_notify",
+    "slug": "push_notify",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "push_notify"
+}
