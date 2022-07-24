@@ -96,6 +96,14 @@ export const AuthScreen = ({navigation}) => {
         </View> )
         : ( 
           <View>
+          <TextInput
+          style={styles.input}
+          placeholder='Name'
+          autoCapitalize='words'
+          value={state.emailAddress}
+          placeholderTextColor='black'
+          onChangeText={(text) => setState({...state,emailAddress: text})}
+        />
           <TouchableOpacity onPress={signUp} style={styles.button}>
           <Text style={styles.text2}>Sign Up</Text>
         </TouchableOpacity>

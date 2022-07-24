@@ -1,7 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import * as React from 'react';
 import HomeScreen from './screens/HomeScreen';
-// import MainContainer from './screens/MainContainer';
 import Quiz from './screens/Quiz';
 import Result from './screens/Result';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -10,7 +9,6 @@ import App1 from './screens/Categories';
 import { LogBox } from "react-native";
 import { AuthScreen } from './screens/Auth';
 import History from './screens/History';
-import { firebase } from '@react-native-firebase/auth';
 import ShowDetails from './screens/ShowDetails';
 
 LogBox.ignoreLogs(["EventEmitter.removeListener"]);

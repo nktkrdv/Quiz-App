@@ -19,6 +19,7 @@ export default function Quiz({ navigation }) {
   const [isLoading, setIsLoading]= React.useState(false)
   const [showMenu, setShowMenu] = React.useState(false);
   const [value, setValue] = React.useState('');
+  const bgimg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTod4yNGJMd3hnPYzabnADQzzbt81DbDWei9w&usqp=CAU';
   // const [timerDuration, setTimerDuration] = React.useState(90000);
   // const [resetTimer, setResetTimer] = React.useState(false);
   const Route = useRoute();
@@ -27,7 +28,7 @@ export default function Quiz({ navigation }) {
 
   function Quesstatus(){
     return (
-      <View style = {styles.container2}>
+      <View style = {styles.bottomContainer}>
       <TouchableOpacity onPress={()=>{
         setShowMenu(false);
       }}>
@@ -128,10 +129,10 @@ export default function Quiz({ navigation }) {
       <View style = {styles.row}>
         <Text onPress={()=>{
           navigation.navigate('Home')
-        }} style = {styles.button}>End Quiz</Text>
+        }} style = {styles.previous}>End Quiz</Text>
         <Text onPress={()=>{
           handleTimeOut();
-        }} style = {styles.button2}>Submit</Text>
+        }} style = {styles.next}>Submit</Text>
       </View>
       
     </View>
@@ -250,28 +251,40 @@ export default function Quiz({ navigation }) {
         <View style = {styles.hundred}>
         {/* <Quesstatus/> */}
       <View style = {styles.absolute}>
+        <Image
+        style={{resizeMode:'stretch',height:'100%',width:'100%'}}
+        source={{
+          uri:bgimg,
+        }}
+      />
       {isLoading && <SimpleAnimatable/>}
 
       </View>
       {questions && (<View style= {styles.absolute}>
-      <View style = {styles.row3}>
-        <Text style={styles.title}>
-          Q.{ques+1}
+      <View style = {styles.header}>
+        <Text style={styles.quesTitle}>
+          Ques. {ques+1}
         </Text>
         <CountDown
-        style = {styles.margin}
+        style = {optionTimer}
           until={100}
           running={isRunning}
           //duration of countdown in seconds
           timeToShow={['M','S']}
           //formate to show
+          digitStyle='#fff'
+          showSeparator= 'true'
+          // digitTxtStyle='#000'
+          digitTxtStyle='#fff'
+          timeLabelStyle='#fff'
           onFinish={() => {
             alert('Time Out')
             handleTimeOut()}}
           //on Finish call
           // onPress={() => alert('hello')}
           //on Press call
-          size={15}
+          
+          size={20}
         />
         <TouchableOpacity onPress={handleMenu}>
           <Image style={styles.miniLogo} source={{uri:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6vFxAcPPKlizCgBCNWhQ4XfBLy33AvQ7Y_A&usqp=CAU'}}/>
@@ -304,13 +317,13 @@ export default function Quiz({ navigation }) {
             <View style= {styles.row}>
             {(ques !== 0) ? (<Text
                     onPress={previousClick}
-                    style={styles.button}>Previous</Text>):<Text style = {styles.empty}> </Text>}
+                    style={styles.previous}>Previous</Text>):<Text style = {styles.empty}> </Text>}
       {ques == 9?(<Text
                     onPress={handleShowResult}
-                    style={styles.button2}>Submit</Text>):(
+                    style={styles.next}>Submit</Text>):(
                       <Text
                     onPress={handleNextPress}
-                    style={styles.button2}>Next</Text>
+                    style={styles.next}>Next</Text>
                     )
       }
             </View>
@@ -355,6 +368,9 @@ const styles = StyleSheet.create({
       height:'100%',
       position:'absolute',
       alignSelf:'center',
+      height:'100%',
+      width:'100%',
+      resizeMode:'stretch',
       // justifyContent:'center',
       // alignContent:'center',
       // height:'100%',
@@ -405,12 +421,11 @@ const styles = StyleSheet.create({
     textShadowColor:'#ff0',
     color: '#fff'
   },
-  title:{
+  quesTitle:{
     // backgroundColor:'#0000ff',
     // topmargin:40,
-    marginTop:20,
     marginLeft:20,
-    marginBottom:10,
+    // marginBottom:10,
     fontWeight:'bold',
     alignSelf:'center',
     fontSize:30,
@@ -457,22 +472,23 @@ categoryTitle: {
     marginBottom:10,
     fontSize:20,
 },
-button:{
-  backgroundColor:'#000',
-  color:'#fff',
+previous:{
+  backgroundColor:'#ccccff',
+  color:'#000',
   shadowColor:'#ffffff',
   shadowRadius:20,
   // shadwi
-  borderColor:'#0000ff',
+  borderColor:'#000',
   // borderWidth:5,
-  borderRightWidth:5,
+  borderRightWidth:2,
   textShadowRadius:5,
   // shadowColor:'#ffffff',
   
   textShadowColor:'#ff0',
   // borderTopWidth:5,
-  borderBottomWidth:5,
+  borderBottomWidth:2,
   // bordersha
+  
   // margin:30,
   padding:15,
   // position:'absolute',
@@ -481,25 +497,25 @@ button:{
   fontSize:30,
   borderRadius:20,
 },
-button2:{
+next:{
   // justifyContent:'flex-end',
   // alignContent:'flex-end',
   // alignSelf:'flex-end',
   // height:200,
-  backgroundColor:'#002387',
+  backgroundColor:'#00A36c',
   color:'#fff',
   shadowColor:'#ffffff',
   shadowRadius:20,
   // shadwi
-  borderColor:'#0000ff',
+  borderColor:'#fff',
   // borderWidth:5,
-  borderRightWidth:5,
-  textShadowRadius:5,
+  borderRightWidth:2,
+  textShadowRadius:2,
   // shadowColor:'#ffffff',
   
   textShadowColor:'#ff0',
   // borderTopWidth:5,
-  borderBottomWidth:5,
+  borderBottomWidth:2,
   // bordersha
   paddingHorizontal:30,
   // paddding
@@ -521,7 +537,7 @@ logo: {
   alignSelf:'center'
   // height: null,
 },
-container2:{
+bottomContainer:{
   position:'absolute',
   height:'100%',
   width:'100%',
@@ -595,7 +611,7 @@ miniLogo:{
   // position:'absolute',
   // backgroundColor:'transparent'
 },
-row3:{
+header:{
   flexDirection:'row',
   justifyContent:'space-between',
   marginTop:30,
@@ -603,11 +619,11 @@ row3:{
   height:'12%',
   alignContent:'center',
   alignSelf:'center',
-  backgroundColor:'#002386',
+  backgroundColor:'#00a36c',
   // borderWidth:5,
-  borderColor:'#00f',
-  borderBottomWidth:5,
-  borderRightWidth:5,
+  borderColor:'#fff',
+  borderBottomWidth:2,
+  borderRightWidth:2,
   borderRadius:20,
   marginBottom:20,
 },
@@ -627,7 +643,7 @@ green:{
   marginRight:10,
   borderRadius:20,
 },
-margin:{
+timer:{
   marginTop:20,
 },
 column2:{
