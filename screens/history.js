@@ -8,55 +8,38 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const History = ({navigation}) => {
     const [loading, setLoading] = useState(true); // Set loading to true on component mount
-    const [users, setUsers] = useState([]); // Initial empty array of users
+    const [questionList, setQuestionList] = useState([]); // Initial empty array of users
     const usr = firebase.auth().currentUser;
-    const [d,setD] = useState(0);
-    const [n,setN] = useState(1);
-    // var d = 0;
-    // var n = 1;
+    const [score,setScore] = useState(0);
+    const [length,setLength] = useState(1);
 
     useEffect(() => {
-      // getAvg();
-      // console.log('score ',d);
-      // console.log('number ',n);
-    // const user
     const subscriber =firestore()
       .collection('Users')
       .doc(usr.uid)
       .collection('History')
       .orderBy('doneAt','desc')
       .onSnapshot(querySnapshot => {
-        // see next step
-        const users = [];
+        const answerList = [];
         var value = 0;
         var len = 0;
       querySnapshot.forEach(documentSnapshot => {
-        // value += documentSnapshot.data()
-        // console.log('data = ',documentSnapshot.data().score);
         value += documentSnapshot.data().score;
         len++;
-        // console.log(documentSnapshot.id);
-        users.push({
+        answerList.push({
           ...documentSnapshot.data(),
           key: documentSnapshot.id,
         });
       });
-      console.log(value);
-      console.log(len);
-      setD(value);
-      setN(len);
-      setUsers(users);
+      setScore(value);
+      setLength(len);
+      setQuestionList(answerList);
       setLoading(false);
       });
-
-    // Unsubscribe from events when no longer in use
     return () => subscriber();
   }, []);
 
   const ShowDetails=(key,score)=>{
-    console.log(users);
-    console.log('score  = ',score);
-
     navigation.navigate('ShowDetails',{map:key,score:score});
   }
 
@@ -67,19 +50,17 @@ const History = ({navigation}) => {
   return (
     <View>
     <View>
-      <Text style = {styles.header}>Average Score: {(d/n).toFixed(2)}</Text>
+      <Text style = {styles.header}>Average Score: {(score/length).toFixed(2)}</Text>
     </View>
     <FlatList style={{height:'90%'}}
-      data={users}
+      data={questionList}
       renderItem={({ item }) => (
         <View style={styles.item}>
         <TouchableOpacity onPress={()=>ShowDetails(item.map,item.score)}>
-
           <Text style={styles.title}>Score: {item.score}</Text>
           <View style={styles.col}>
           <Text style = {styles.text}>Completed On : {item.doneAt.toDate().toDateString()}</Text>
           <Text style = {styles.text}>At {item.doneAt.toDate().toTimeString().substring(0,9)}</Text>
-          {/* <Text style = {styles.text}>{item.key}</Text> */}
           </View>
         </TouchableOpacity>
         </View>
@@ -98,8 +79,6 @@ const styles = StyleSheet.create({
     color:'white',
     backgroundColor:'#002387',
     borderRadius:20,
-    // alignItems:'center',
-    // alignSelf:'center',
     margin:10,
     padding:5,
     borderColor:'#00f',
@@ -137,9 +116,6 @@ const styles = StyleSheet.create({
     text:{
         color:'white',
         fontSize:15,
-        // backgroundColor:'#008080',
         borderRadius:10,
-        // margin:10,
-        // padding:5,
     },
 });

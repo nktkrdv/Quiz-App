@@ -1,10 +1,23 @@
 import { Icon,Button, NativeBaseProvider } from 'native-base';
+import * as Animatable from "react-native-animatable";
 import * as React from 'react';
 import { SignOutUser } from '../ApiService';
-import { View, Text,Image,StyleSheet } from 'react-native';
+import { View, Text,Image,StyleSheet,LogBox } from 'react-native';
+import { firebase } from '@react-native-firebase/auth';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+LogBox.ignoreLogs(['Require cycle:']);
+
 
 export default function HomeScreen({ navigation }) {
-
+  const bgImg = 'https://imgs.search.brave.com/zwFL8XqPiywqVB1j_4me6_fxEJHehSYsJb7M06pcE8o/rs:fit:759:225:1/g:ce/aHR0cHM6Ly90c2Uz/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC41/TXptMDNDSlhMT3cx/YS10UFlRSnRBSGFF/byZwaWQ9QXBp';
+  const LeaderBoardIcon = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNJ71_5pfGkB7yOmgfxNODsbS3oKjpZeSFHA&usqp=CAU';
+  const logoutImg = 'https://media.istockphoto.com/illustrations/logout-icon-cyan-blue-background-illustration-id1160363087';
+  const logoImg = 'https://imgs.search.brave.com/AusNdRuyhQkT6YKW8BAL7MYD3cOq74hHGgMj-nxhNks/rs:fit:640:320:1/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAxNy8w/Ny8xMC8yMy80My9x/dWVzdGlvbi1tYXJr/LTI0OTIwMDlfNjQw/LmpwZw';
+  React.useEffect(()=>{
+    if(firebase.auth().currentUser == null){
+      navigation.navigate('Auth');
+    }
+  },[])
   // function to signOut
   const signOut = () => {
     SignOutUser()
@@ -23,28 +36,45 @@ export default function HomeScreen({ navigation }) {
         <Image
         style={styles.logo}
         source={{
-          uri: 'https://imgs.search.brave.com/zwFL8XqPiywqVB1j_4me6_fxEJHehSYsJb7M06pcE8o/rs:fit:759:225:1/g:ce/aHR0cHM6Ly90c2Uz/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC41/TXptMDNDSlhMT3cx/YS10UFlRSnRBSGFF/byZwaWQ9QXBp',
+          uri: bgImg,
         }}
       />
           <View style = {styles.absolute}>
-          
-          <NativeBaseProvider>
-          <Button onPress={signOut}>
-        <Image
+          <View style={{flexDirection:'row', height:'100%', width:"100%", margin:10,position:'absolute'}}>
+            <TouchableOpacity onPress={()=>signOut()}>
+              <Image
+              style={styles.logout}
+              source={{
+                uri:logoutImg,
+              }} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=>{
+              navigation.navigate('LeaderBoard')
+            }}>
+            <Image
+            resizeMode='stretch'
         style={styles.logout}
         source={{
-          uri: 'https://p.kindpng.com/picc/s/312-3120740_logout-hd-png-download.png',
+          uri: LeaderBoardIcon,
         }}
       />
-            </Button>
-          </NativeBaseProvider>
+            </TouchableOpacity>
+          </View>
           <Image
         style={styles.minilogo}
         source={{
-          uri: 'https://imgs.search.brave.com/AusNdRuyhQkT6YKW8BAL7MYD3cOq74hHGgMj-nxhNks/rs:fit:640:320:1/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAxNy8w/Ny8xMC8yMy80My9x/dWVzdGlvbi1tYXJr/LTI0OTIwMDlfNjQw/LmpwZw',
+          uri: logoImg,
         }}
       />
-            <Text style = {styles.title}>Quizzare</Text>
+      <Animatable.View style = {{}}>
+      <Animatable.Text style = {styles.title}
+        animation="zoomIn"
+        iterationCount={1}
+        direction="normal"
+      >
+        Quizzare
+      </Animatable.Text>
+    </Animatable.View>
             <Text
                     style={styles.para}>Welcome to this awesome Quiz app, you can take a quiz for any topic. click below to start... </Text>
                 <Text
@@ -97,11 +127,15 @@ const styles = StyleSheet.create({
       backgroundColor: 'transparent'
     },
     logout:{
-      height:30,
-      width:30,
-      position:'absolute',
+      height:50,
+      width:50,
+      margin:10,
+      alignSelf:'center',
+      justifyContent:'space-around',
       alignContent:'flex-end',
-      alignSelf:'flex-end',
+      borderRadius:40,
+      
+      // alignSelf:'flex-end',
     },
     title:{
       alignContent:'center',
@@ -112,7 +146,7 @@ const styles = StyleSheet.create({
       fontSize:40,
       textShadowRadius:5,
       textShadowColor:'#fff',
-      color: '#0000ff'
+      color: '#00ff00'
     },
     button:{
       width:'60%',

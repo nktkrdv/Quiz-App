@@ -1,33 +1,45 @@
 import { NavigationContainer } from '@react-navigation/native';
 import * as React from 'react';
-import HomeScreen from './screens/HomeScreen';
-import Quiz from './screens/Quiz';
-import Result from './screens/Result';
-import { createStackNavigator } from '@react-navigation/stack';
-import Responses from './screens/Responses';
-import App1 from './screens/Categories';
+import HomeScreen from './screens/home';
+import Quiz from './screens/quiz';
+import Result from './screens/result';
+import { createStackNavigator,CardStyleInterpolators,CommonActions } from '@react-navigation/stack';
+import App1 from './screens/categories';
 import { LogBox } from "react-native";
-import { AuthScreen } from './screens/Auth';
-import History from './screens/History';
-import ShowDetails from './screens/ShowDetails';
+import { AuthScreen } from './screens/auth';
+import History from './screens/history';
+import ShowDetails from './screens/showDetails';
+import LeaderBoard from './screens/leaderBoard';
 
 LogBox.ignoreLogs(["EventEmitter.removeListener"]);
-
+// navigation.dispatch(
+//   CommonActions.reset({
+//     index: 1,
+//     routes: [
+//       { name: "Home" },
+//       {
+//         name: "Categories",
+//         params: { user: "jane" },
+//       },
+//     ],
+//   })
+// );
 
 function App() {
   const Stack = createStackNavigator();
 function MyStack() {
   return (
-<Stack.Navigator >
-
-      <Stack.Screen options={{headerShown:false}} name="Auth" component={AuthScreen}/>
+<Stack.Navigator screenOptions={{
+      cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid, 
+    }}>
+      <Stack.Screen options={{ animationTypeForReplace:'pop', headerShown:false}} name="Auth" component={AuthScreen}/>
       <Stack.Screen options={{headerShown:false}} name="ShowDetails" component={ShowDetails}/>
-      <Stack.Screen options={{headerShown:false}} name="Home" component={HomeScreen}  />
+      <Stack.Screen options={{headerShown:false}} name="LeaderBoard" component={LeaderBoard}/>
+      <Stack.Screen options={{  animationTypeForReplace:'pop', headerShown:false}} name="Home" component={HomeScreen}  />
       <Stack.Screen options={{headerShown:false}} name="History" component={History}/>
       <Stack.Screen options={{headerShown:false}} name="Quiz" component = {Quiz} />
       <Stack.Screen options={{headerShown:false}} name="Result" component={Result} />
-      <Stack.Screen options={{headerShown:false}} name="Responses" component={Responses}/>
-      <Stack.Screen options={{headerShown:false}} name="Categories" component={App1}/>
+      <Stack.Screen options={{  headerShown:false}} name="Categories" component={App1}/>
     </Stack.Navigator>
     
   );

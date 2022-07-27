@@ -5,6 +5,7 @@ import firebase from '@react-native-firebase/app'
 import Auth from '@react-native-firebase/auth'
 import database from '@react-native-firebase/database'
 import firestore from '@react-native-firebase/firestore'
+import storage from '@react-native-firebase/storage'
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -22,7 +23,7 @@ const firebaseConfig = {
 if(!firebase.apps.length){
   firebase.initializeApp(firebaseConfig);
 }
-export {Auth,firebase,database,firestore};
+export {Auth,firebase,database,firestore, storage};
 
 function Setup() {
   return <App/>;

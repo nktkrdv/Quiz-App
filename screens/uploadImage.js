@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const Title = () => {
+const UploadImage = () => {
   return (
     <View>
-      <Text>Welcome To Quiz App</Text>
+      <Text>UploadImage</Text>
     </View>
   )
 }
 
-export default Title
+export default UploadImage

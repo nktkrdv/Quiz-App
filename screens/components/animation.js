@@ -19,11 +19,7 @@ const styles = StyleSheet.create({
     absolute:{
         flex:1,
         position:'absolute',
-        // alignItems:'center',
         alignSelf:'center',
-        // justifyContent:'center',
-
-        // alignContent:'center',
         textAlign:'center',
         backgroundColor: 'transparent'
     },
@@ -32,7 +28,6 @@ const styles = StyleSheet.create({
         fontSize:50,
         color:'#fff',
         fontWeight:'bold',
-        // position:'absolute',
         justifyContent:'center',
         alignContent:'center',
         alignSelf:'center',

@@ -1,7 +1,6 @@
 import * as React from 'react'; 
 import { View,Text,Button,StyleSheet,TextInput, TouchableOpacity,Image } from 'react-native'
-
-import {Auth} from '../Setup';
+import {Auth, firestore} from '../Setup';
 import {SignUpUser, SignInUser, SignOutUser,submitUser} from '../ApiService';
 import { firebase } from '@react-native-firebase/auth';
 
@@ -11,14 +10,21 @@ export const AuthScreen = ({navigation}) => {
   const [state, setState] = React.useState({
     emailAddress: '',
     password: '',
+    Name:'',
   });
 
 
   // method for SignUp
   const signUp = () => {
-    if(state.emailAddress != "" || state.password != ""){
+    if(state.emailAddress != "" || state.password != "" || state.Name != ""){
       SignUpUser(state.emailAddress, state.password)
         .then((data) => {
+          const usr = firebase.auth().currentUser;
+          firestore().collection('Users').doc(usr.uid).set({
+            email:state.emailAddress,
+            name: state.Name,
+            avg:0,
+          })
           alert(data);
           navigation.navigate('Home');
         })
@@ -86,6 +92,15 @@ export const AuthScreen = ({navigation}) => {
           
           placeholderTextColor='black'
           onChangeText={(text) => setState({...state,password: text})}/>
+          {!userExist && <TextInput
+          style={styles.input}
+          placeholder='Name'
+          // secureTextEntry={true}
+          autoCapitalize="none"
+          
+          placeholderTextColor='black'
+          onChangeText={(text) => setState({...state,Name: text})}/>}
+          
         {userExist ? ( 
           <View>
 
@@ -96,14 +111,6 @@ export const AuthScreen = ({navigation}) => {
         </View> )
         : ( 
           <View>
-          <TextInput
-          style={styles.input}
-          placeholder='Name'
-          autoCapitalize='words'
-          value={state.emailAddress}
-          placeholderTextColor='black'
-          onChangeText={(text) => setState({...state,emailAddress: text})}
-        />
           <TouchableOpacity onPress={signUp} style={styles.button}>
           <Text style={styles.text2}>Sign Up</Text>
         </TouchableOpacity>

@@ -4,6 +4,7 @@ import React from 'react'
 const Grid = ({title,url,isLeft}) => {
   return (
     <View style={isLeft?styles.boxLeft:styles.boxRight}>
+    <Text style={{position:'absolute', margin:10, fontWeight:'bold'}}>1:40 sec</Text>
         <Image style={styles.img} source={{uri:url}}/>
         <Text style = {styles.title}>{title}</Text>
     </View>
@@ -18,8 +19,6 @@ const styles = StyleSheet.create({
         height:170,
         width:170,
         alignSelf:'flex-end',
-        // alignItems:'flex-end'
-        // marginLeft:10,
         backgroundColor:'#00ffff',
         borderBottomEndRadius:30,
         borderBottomStartRadius:30,
@@ -28,7 +27,7 @@ const styles = StyleSheet.create({
     boxLeft:{
         padding:30,
         height:170,
-        marginRight:20,
+        margin:20,
         width:170,
         backgroundColor:'#00ffff',
         borderBottomEndRadius:30,
