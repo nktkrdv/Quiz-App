@@ -12,18 +12,6 @@ import ShowDetails from './screens/showDetails';
 import LeaderBoard from './screens/leaderBoard';
 
 LogBox.ignoreLogs(["EventEmitter.removeListener"]);
-// navigation.dispatch(
-//   CommonActions.reset({
-//     index: 1,
-//     routes: [
-//       { name: "Home" },
-//       {
-//         name: "Categories",
-//         params: { user: "jane" },
-//       },
-//     ],
-//   })
-// );
 
 function App() {
   const Stack = createStackNavigator();

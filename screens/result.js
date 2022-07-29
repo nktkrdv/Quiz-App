@@ -25,9 +25,11 @@ const Result = ({navigation}) => {
   const getScore =()=>{
     setLoading(true);
     let total = 0;
+    let len = 0;
     for (const [key, value] of route.params.map.entries()) {
         let quesScore = value.get("score");
         total += quesScore;
+        len++;
     }
     setScore(total);
 
@@ -39,7 +41,7 @@ const Result = ({navigation}) => {
         setObjectMap(newMap);
       const usersCollectionRef = firestore().collection('Users').doc(user.uid).collection("History");
       usersCollectionRef.add({
-        score: total,
+        score: total/(len/10),
         doneAt: firestore.FieldValue.serverTimestamp(),
         map: newMap,
       });
@@ -70,7 +72,6 @@ const Result = ({navigation}) => {
   if (loading) {
     return <ActivityIndicator color='#fff' size={'large'} animating={true} style = {{alignSelf:'center', justifyContent:'center', margin:300,size:"large",color:'white'}}/>;
   }
-
     return (
         <View style = {{width:'100%',height:'100%'}}>
         <View style = {styles.absolute}>

@@ -14,7 +14,7 @@ const ShowDetails = ({navigation}) => {
         for (const key in route.params.map) {
             questions.push({
                 ...route.params.map[key],
-                qno:key.charAt(0)-'0'+1
+                qno:parseInt(key)+1
               });
         }
         setUsers(questions);

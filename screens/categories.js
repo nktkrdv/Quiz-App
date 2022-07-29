@@ -1,15 +1,15 @@
 
 import React, {useState, useEffect} from 'react';
-import {Dropdown} from 'react-native-material-dropdown';
  
 // import all the components we are going to use
-import {SafeAreaView, StyleSheet, Text, View,Image, ScrollView, FlatList} from 'react-native';
+import {SafeAreaView,TextInput, StyleSheet, Text, View,Image, ScrollView, FlatList} from 'react-native';
  
 // import moment to help you play with date and time
 import moment, { calendarFormat } from 'moment';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Grid from './components/grid';
 import { BlurView } from 'expo-blur';
+import { Dropdown } from 'react-native-element-dropdown';
  
 const App1 = ({navigation}) => {
   const GKimg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRySUQ60CRL2e0SK89cVTq7weTEY-ZvCc4eYQ5aCMNynuxCvNRkAb6FrRagoKC3NWPelHY&usqp=CAU';
@@ -19,25 +19,54 @@ const App1 = ({navigation}) => {
   const techimg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSAaFDfJ4eeONr7E4NL2jynD-G_c3vlUpLmA&usqp=CAU';
   const animalsimg = 'data:image/png;base64,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';
   const bgimg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa5UIogPeTeL00zo_ybf3cL52DDAZ3F7K40Q&usqp=CAU';
-  
-  const apiStr = 'https://opentdb.com/api.php?amount=10&category=';
+  const [showMenu,setShowMenu] = React.useState(false);
+  const cancelImg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPs2CgRYqEB56IjdDYH8zTsIcEx8DQqnd4aA&usqp=CAU'
+
+  const Api = 'https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple&encode=url3986'
+  const apiStr = 'https://opentdb.com/api.php?';
+  const amount = 'amount=';
+  const category = '&category='
+  const difficulty = '&difficulty='
   const apiLast = '&type=multiple&encode=url3986';
-  const difficulty = [{
-    value:'Easy'
-  },
-  {
-    value:'Medium'
-  },
-  {
-    value:'Hard'
-  }
-]
+  const [diff,setDiff] = React.useState('');
+  const [quesLen, setQuesLen] = React.useState('10');
+  const [cat , setCat] = React.useState('');
+
+  const data = [
+    { label: 'Any', value:''},
+    { label: 'Easy', value: 'easy' },
+    { label: 'Medium', value: 'medium' },
+    { label: 'Hard', value: 'hard' },
+  ];
 
   const showResult=(link)=>{
-    console.log(link),
+    if(diff == ''){
+      var API = apiStr + amount + quesLen + category + cat  + apiLast;
+    }
+    else
+      var API = apiStr + amount + quesLen + category + cat + difficulty + diff + apiLast;
+    console.log(API),
     navigation.navigate('Quiz', {
-      link: link,
-    })
+      link: API,
+      time : parseInt(quesLen)
+    });
+  }
+  
+  // const handleSubmit=()=>{
+  // }
+  const changeText=(text)=>{
+    for(var i=0;i<text.length;i++){
+      if(text.charAt(i) > '9' || text.charAt(i) <'0'){
+        setQuesLen(text.substring(0,i));
+        return;
+      }
+    }
+    if(text.charAt(0) > '4' && text.length == 2){
+      setQuesLen('50');
+    }
+    else{
+        setQuesLen(text)
+    }
   }
   
   const CategoryyItems = [
@@ -63,7 +92,8 @@ const App1 = ({navigation}) => {
           data={ CategoryyItems }
           renderItem={ ({item}) =>
           <TouchableOpacity onPress={()=>{
-            showResult(apiStr + item.category + apiLast);
+            setCat(item.category);
+            setShowMenu(true);
           }}>
             <Grid title={item.topic} isLeft={true} url = {item.img}/>
           </TouchableOpacity>
@@ -71,13 +101,46 @@ const App1 = ({navigation}) => {
           numColumns={2}
        />
       </View>
-      <BlurView intensity={110} tint='dark' style = {styles.absolute} >
-          <Text style={styles.title}>Hi</Text>
-          <Dropdown
-            label='Difficulty Level'
-            data={difficulty}
+      {showMenu && <BlurView intensity={110} tint='dark' style = {styles.absolute} >
+      <TouchableOpacity onPress={()=>setShowMenu(false)} style = {{width:300}}>
+
+      <Image
+      style={{height:30,width:30, borderRadius:20, alignSelf:'flex-end'}}
+        source={{uri:cancelImg}}
+        
+      />
+      </TouchableOpacity>
+      <View style={styles.card}>
+
+      <View style={{flexDirection:'row',justifyContent:'space-around',alignContent:'center'}}>
+          <Text style={styles.title}>No. of Questions:</Text>
+          <TextInput 
+          maxLength={2}
+            style={styles.textInput}
+            keyboardType = 'number-pad'
+            onChangeText = {(text)=> changeText(text)}
+            defaultValue={'10'}
+            value={quesLen}
           />
-      </BlurView>
+      </View>
+          <Text style={styles.title}>Difficulty:</Text>
+
+          <Dropdown
+            style={styles.dropdown}
+            placeholderStyle={styles.placeHolderStyle}
+            selectedTextStyle={styles.placeHolderStyle}
+            data={data}
+            labelField='label'
+            valueField='value'
+            value={diff}
+            onChange={item => {
+              setDiff(item.value);
+              console.log(item.value);
+            }}
+          />
+      <Text onPress={()=>showResult()} style={styles.button}>Start</Text>
+      </View>
+      </BlurView>}
     </View>
   );
 };
@@ -89,7 +152,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',
-    color:'#fff',
+    color:'#000',
     padding: 20,
   },
   logo:{
@@ -107,12 +170,69 @@ const styles = StyleSheet.create({
   },
   absolute:{
     position:'absolute',
-
     alignItems:'center',
     alignSelf:'center',
     justifyContent:'center',
     alignContent:'center',
-    margin:'40%',
+    // marginTop:'40%',
+    width:'100%',
+    height:'100%',
     textAlign:'center'
+  },
+  placeHolderStyle:{
+    fontSize:16,
+    color:'#000',
+    fontWeight:'bold',
+  },
+  dropdown:{
+    height:50,
+    width:200,
+    color:'#000',
+    backgroundColor:'#fff',
+    // position:'absolute',
+    padding:10,
+    borderRadius:20,
+  },
+  label: {
+    color:'#000',
+    position: 'absolute',
+    backgroundColor: 'white',
+    left: 22,
+    top: 8,
+    zIndex: 999,
+    paddingHorizontal: 8,
+    fontSize: 14,
+  },
+  textInput:{
+    color:'#000a',
+    padding:10,
+    borderRadius:10,
+    fontWeight:'bold',
+    backgroundColor:'#fff',
+    width:40,
+    height:40,
+  },
+  card:{
+    height:300,
+    width:300,
+    alignSelf:'center',
+    backgroundColor:'#00ffff',
+    alignContent:'center',
+    justifyContent:'center',
+    alignItems:'center',
+    borderRadius:30,
+  },
+  button:{
+    fontSize:20,
+    backgroundColor:'#228b82',
+    color:'#fff',
+    padding:10,
+    paddingHorizontal:40,
+    borderRadius:20,
+    marginTop:30,
+    borderColor:'#32cd32',
+    borderRightWidth:4,
+    borderBottomWidth:4,
+    fontWeight:'bold',
   }
 });

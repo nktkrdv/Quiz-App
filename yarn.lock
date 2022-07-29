@@ -6631,6 +6631,11 @@ react-native-countdown-component@^2.7.1:
     prop-types "^15.5.8"
     sprintf-js "^1.1.1"
 
+react-native-element-dropdown@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-element-dropdown/-/react-native-element-dropdown-2.1.0.tgz#a13c544798e2d889e076a917f7980d090b62541a"
+  integrity sha512-y6s+MANhVy2HIfsnrHh1pVMVu9aXUPcxWH7GuCJ12W+iJiBdzmyyKYNWl37b/9IJHbsIpDyiFlCFwj21VBANeA==
+
 react-native-flexi-radio-button@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/react-native-flexi-radio-button/-/react-native-flexi-radio-button-0.2.2.tgz#a0180393c531ba3477722c6e42a31ceb1c11623b"
