@@ -6,6 +6,8 @@ import { firebase } from '@react-native-firebase/auth';
 import { firestore } from '../Setup';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import SimpleAnimatable from './components/animation';
+import LottieView from "lottie-react-native";
+import SimpleAnimation from './components/congratsAnimation';
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
@@ -85,6 +87,7 @@ const Result = ({navigation}) => {
       />
       <View style={styles.absolute}>
       <View style = {styles.col}>
+            <SimpleAnimation/>
             <Text style = {styles.title}>Results</Text>
             <Text style = {styles.smallTitle}>You Scored : {score}</Text>
             <View style = {styles.row}>
@@ -96,7 +99,6 @@ const Result = ({navigation}) => {
             </TouchableOpacity>
             </View>
             <View>
-
             <Text
                     onPress={() => navigation.navigate('ShowDetails',{"map" : objectMap, "score" : score})}
                     style={styles.responses}>See Responses</Text>
@@ -118,18 +120,18 @@ const styles = StyleSheet.create({
     alignContent:'center',
     justifyContent:'center',
 
-    width:50,
-    height:50,
-    borderRadius:30,
+    width:70,
+    height:70,
+    borderRadius:80,
     padding:5,
   },
   row:{
-    justifyContent:'space-evenly',
+    justifyContent:'space-between',
     flexDirection:'row',
     alignContent:'center',
     alignSelf:'center',
     padding:10,
-    height:'20%',
+    marginTop:200,
     width:'80%',
   },
   col:{

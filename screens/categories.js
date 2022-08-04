@@ -31,6 +31,7 @@ const App1 = ({navigation}) => {
   const [diff,setDiff] = React.useState('');
   const [quesLen, setQuesLen] = React.useState('10');
   const [cat , setCat] = React.useState('');
+  const [warning,setWarning] = React.useState(false);
 
   const data = [
     { label: 'Any', value:''},
@@ -40,16 +41,24 @@ const App1 = ({navigation}) => {
   ];
 
   const showResult=(link)=>{
-    if(diff == ''){
-      var API = apiStr + amount + quesLen + category + cat  + apiLast;
+    if(quesLen=='' || parseInt(quesLen)<1){
+      setWarning(true);
+      return;
     }
-    else
-      var API = apiStr + amount + quesLen + category + cat + difficulty + diff + apiLast;
-    console.log(API),
-    navigation.navigate('Quiz', {
-      link: API,
-      time : parseInt(quesLen)
-    });
+    else{
+
+      if(diff == ''){
+        var API = apiStr + amount + quesLen + category + cat  + apiLast;
+      }
+      else
+        var API = apiStr + amount + quesLen + category + cat + difficulty + diff + apiLast;
+      console.log(API),
+      navigation.navigate('Quiz', {
+        link: API,
+        time : parseInt(quesLen)
+      });
+    }
+
   }
   
   // const handleSubmit=()=>{
@@ -58,13 +67,17 @@ const App1 = ({navigation}) => {
     for(var i=0;i<text.length;i++){
       if(text.charAt(i) > '9' || text.charAt(i) <'0'){
         setQuesLen(text.substring(0,i));
+        if(parseInt(text.substring(0,i)>50)) setWarning(true);
         return;
       }
     }
     if(text.charAt(0) > '4' && text.length == 2){
+      if(parseInt(text)>50)
+      setWarning(true);
       setQuesLen('50');
     }
     else{
+      setWarning(false)
         setQuesLen(text)
     }
   }
@@ -123,6 +136,7 @@ const App1 = ({navigation}) => {
             value={quesLen}
           />
       </View>
+      {warning && <Text style={{color:'#f00',fontWeight:'bold',padding:2,borderRadius:10}}>! Questions should be between 1 to 50</Text>}
           <Text style={styles.title}>Difficulty:</Text>
 
           <Dropdown

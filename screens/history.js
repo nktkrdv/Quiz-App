@@ -28,7 +28,7 @@ const History = ({navigation}) => {
         len++;
         answerList.push({
           ...documentSnapshot.data(),
-          key: documentSnapshot.id,
+          key: len,
         });
       });
       setScore(value);
@@ -55,7 +55,7 @@ const History = ({navigation}) => {
     <FlatList style={{height:'90%'}}
       data={questionList}
       renderItem={({ item }) => (
-        <View style={styles.item}>
+        <View style={(item.key%2==0)?[styles.item,{backgroundColor:'#002f6c',borderColor:'#13294b'}]:[styles.item,{backgroundColor:'#001440',borderColor:'#006eb3'}]}>
         <TouchableOpacity onPress={()=>ShowDetails(item.map,item.score)}>
           <Text style={styles.title}>Score: {item.score}</Text>
           <View style={styles.col}>
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         fontSize:20,
         color:'white',
         alignSelf:'center',
-        backgroundColor:'#006666',
+        backgroundColor:'#002f6c',
         margin:10,
         width:'100%',
         padding:10,
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     title:{
         fontSize:30,
         fontWeight:'bold',
-        color:'#fff',
+        color:'#009a18',
         textAlign:'center',
         justifyContent:'center',
         alignSelf:'center',
