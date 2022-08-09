@@ -2,12 +2,13 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 
 import LottieView from "lottie-react-native";
+import LINKS from "../../assets/constants/links";
 
 export default function SimpleAnimation() {
   return (
     <View>
       <LottieView
-        source={require("../../assets/congratulation.json")}
+        source={LINKS.CONGRATS_ANIMATION}
         autoPlay={true}
         style={styles.animation}
       />

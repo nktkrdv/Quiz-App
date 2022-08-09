@@ -4,7 +4,7 @@ import HomeScreen from './screens/home';
 import Quiz from './screens/quiz';
 import Result from './screens/result';
 import { createStackNavigator,CardStyleInterpolators,CommonActions } from '@react-navigation/stack';
-import App1 from './screens/categories';
+import Categories from './screens/categories';
 import { LogBox } from "react-native";
 import { AuthScreen } from './screens/auth';
 import History from './screens/history';
@@ -27,7 +27,7 @@ function MyStack() {
       <Stack.Screen options={{headerShown:false}} name="History" component={History}/>
       <Stack.Screen options={{headerShown:false}} name="Quiz" component = {Quiz} />
       <Stack.Screen options={{headerShown:false}} name="Result" component={Result} />
-      <Stack.Screen options={{  headerShown:false}} name="Categories" component={App1}/>
+      <Stack.Screen options={{  headerShown:false}} name="Categories" component={Categories}/>
     </Stack.Navigator>
     
   );

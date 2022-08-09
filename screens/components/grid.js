@@ -1,10 +1,9 @@
-import { View, Text, ScrollView, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image } from 'react-native'
 import React from 'react'
 
-const Grid = ({title,url,isLeft}) => {
+const Grid = ({title,url}) => {
   return (
-    <View style={isLeft?styles.boxLeft:styles.boxRight}>
-    <Text style={{position:'absolute', margin:10, fontWeight:'bold'}}>1:40 sec</Text>
+    <View style={styles.box}>
         <Image style={styles.img} source={{uri:url}}/>
         <Text style = {styles.title}>{title}</Text>
     </View>
@@ -14,17 +13,7 @@ const Grid = ({title,url,isLeft}) => {
 export default Grid
 
 const styles = StyleSheet.create({
-    boxRight:{
-        padding:30,
-        height:170,
-        width:170,
-        alignSelf:'flex-end',
-        backgroundColor:'#00ffff',
-        borderBottomEndRadius:30,
-        borderBottomStartRadius:30,
-        borderTopLeftRadius:30,
-    },
-    boxLeft:{
+    box:{
         padding:30,
         height:170,
         margin:20,

@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { ActivityIndicator } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import Items from './components/itemHistory';
+import Items from './components/itemResponse';
 
 
 const ShowDetails = ({navigation}) => {
@@ -35,7 +35,7 @@ const ShowDetails = ({navigation}) => {
     <FlatList style={{height:'90%'}}
       data={users}
       renderItem={({ item }) => (
-        <Items question1={item.question} chosen1={item.chosen} score1={item.score} correct1={item.correct} qno={item.qno}/>
+        <Items data={item}/>
       )}
     />
     </View>

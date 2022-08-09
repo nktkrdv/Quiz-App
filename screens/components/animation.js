@@ -10,7 +10,7 @@ export default function SimpleAnimatable() {
         iterationCount={"infinite"}
         direction="normal"
       >
-        Loading..
+        Loading...
       </Animatable.Text>
     </Animatable.View>
   );

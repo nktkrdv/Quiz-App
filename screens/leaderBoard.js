@@ -1,27 +1,22 @@
-import { View, Text ,Image, StyleSheet,FlatList} from 'react-native'
-import React from 'react'
-// import { FlatList, ScrollView } from 'react-native-gesture-handler'
-import LeaderBoardRow from './components/leaderBoardGrid';
-import { firestore,firebase } from '../Setup';
-import Items from './components/itemHistory';
-import SimpleAnimation from './components/congratsAnimation';
+import { View, Text, Image, StyleSheet, FlatList } from "react-native";
+import React from "react";
+import LeaderBoardRow from "./components/leaderBoardGrid";
+import { firestore, firebase } from "../Setup";
+import SimpleAnimation from "./components/congratsAnimation";
+import LINKS from "../assets/constants/links";
+import STRINGS from "../assets/constants/strings";
+import COLORS from "../assets/constants/colors";
 
-
-
-const LeaderBoard = ({navigation}) => {
-    const [users, setUsers] = React.useState([]);
-    const trophyImg = require('../assets/images/trophyImg.png');
-    const upbgImg = require('../assets/images/leaderbg.png')
-    const bgImg = 'https://t4.ftcdn.net/jpg/03/18/89/75/400_F_318897549_LBKxBUAFlnCHVDjpbOjSitnZ9tUqnCjy.jpg';
-    React.useEffect(() => {
-      const subscriber =firestore()
-        .collection('Users')
-        .orderBy('avg','desc')
-        .onSnapshot(querySnapshot => {
-          const users = [];
-          var value = 0;
-          var len = 0;
-        querySnapshot.forEach(documentSnapshot => {
+const LeaderBoard = ({ navigation }) => {
+  const [users, setUsers] = React.useState([]);
+  React.useEffect(() => {
+    const subscriber = firestore()
+      .collection("Users")
+      .orderBy("avg", "desc")
+      .onSnapshot((querySnapshot) => {
+        const users = [];
+        var len = 0;
+        querySnapshot.forEach((documentSnapshot) => {
           len++;
           users.push({
             ...documentSnapshot.data(),
@@ -29,56 +24,90 @@ const LeaderBoard = ({navigation}) => {
           });
         });
         setUsers(users);
-        });
-      return () => subscriber();
-    }, []);
+      });
+    return () => subscriber();
+  }, []);
   return (
     <View>
-    <Image style={{height:'100%',width:'100%'}} source={{uri:bgImg}} />
-    <View style={{height:'100%',width:'100%',position:'absolute', flexDirection:'column'}}>
-    
-    <View style={styles.container}>
-    <Image resizeMode='cover' style={{position:'absolute',height:'100%',width:'100%',borderRadius:30}} source={upbgImg} />
-      <Image resizeMode='cover' style={styles.img} source={trophyImg} />
-      <Text style={styles.text}>LeaderBoard</Text>
-      <SimpleAnimation/>
-    </View>
-    <View>
-      <FlatList style={{height:'62%',margin:20}}
-      data={users}
-      renderItem={({ item }) => (
-        <LeaderBoardRow Points={item.avg.toFixed(2)*100} Name={item.name} Number={item.key} />
-      )}
-    />
+      <Image style={styles.size} source={{ uri: LINKS.LEADERBOARD_BG }} />
+      <View style={styles.header}>
+        <View style={styles.container}>
+          <Image
+            resizeMode="cover"
+            style={styles.image}
+            source={LINKS.UPPER_BG_IMG}
+          />
+          <Image
+            resizeMode="cover"
+            style={styles.img}
+            source={LINKS.TROPHY_IMG}
+          />
+          <Text style={styles.text}>{STRINGS.LEADERBOARD}</Text>
+        </View>
+        <SimpleAnimation />
+        <View>
+          <FlatList
+            style={styles.flatList}
+            data={users}
+            renderItem={({ item }) => (
+              <LeaderBoardRow
+                Points={item.avg.toFixed(2) * 100}
+                Name={item.name}
+                Number={item.key}
+              />
+            )}
+          />
+        </View>
       </View>
     </View>
-    </View>
-  )
-}
+  );
+};
 
-export default LeaderBoard
+export default LeaderBoard;
 
 const styles = StyleSheet.create({
-  container:{
-    height:'35%',
-    backgroundColor:'#0198e1',
-    borderBottomEndRadius:40,
-    borderBottomStartRadius:40,
+  flatList: {
+    height: "62%",
+    margin: 20,
   },
-  img:{
-    marginTop:20,
-    height:'70%',
-    width:'80%',
-    alignSelf:'center',
-    alignItems:'center',
-    justifyContent:'space-between',
-    alignContent:'center',
-    backgroundColor:'transparent'
+  size: {
+    height: "100%",
+    width: "100%",
   },
-  text:{
-    fontSize:30,
-    color:'#fff',
-    fontWeight:'bold',
-    textAlign:'center',
-  }
-})
+  container: {
+    height: "35%",
+    backgroundColor: COLORS.OCEAN_BLUE,
+    borderBottomEndRadius: 40,
+    borderBottomStartRadius: 40,
+  },
+  img: {
+    marginTop: 20,
+    height: "70%",
+    width: "80%",
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "space-between",
+    alignContent: "center",
+    backgroundColor: COLORS.TRANSPARENT,
+  },
+  text: {
+    fontSize: 30,
+    color: COLORS.BLACK,
+    textShadowColor: COLORS.LIGHT_GREEN,
+    textShadowRadius: 20,
+    fontWeight: STRINGS.BOLD,
+    textAlign: "center",
+  },
+  header: {
+    height: "100%",
+    width: "100%",
+    position: "absolute",
+    flexDirection: "column",
+  },
+  image: {
+    position: "absolute",
+    height: "100%",
+    width: "100%",
+    borderRadius: 30,
+  },
+});
